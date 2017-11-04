@@ -20,11 +20,23 @@ public class NewBehaviourScript : MonoBehaviour {
     {
         if (whsint == 1)
         {
-            ManageAllNodes.GetManageAllNodes.dictionNodes[id].Whether1 = 1;
+            ManageAllNodes.GetManageAllNodes.dictionNodes[id].shutDown(arg0 =>
+            {
+                if (arg0)
+                {
+                    Debug.Log("Change successfully");
+                }
+            });
         }
         else
         {
-            ManageAllNodes.GetManageAllNodes.dictionNodes[id].Whether1 = 2;
+            ManageAllNodes.GetManageAllNodes.dictionNodes[id].OpenNode(arg0 =>
+            {
+                if (arg0)
+                {
+                    Debug.Log("Change successfully");
+                }
+            });
         }
     }
 }

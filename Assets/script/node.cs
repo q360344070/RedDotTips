@@ -18,6 +18,8 @@ public class node : MonoBehaviour, NodeInterface
     private int WithNodes;//1根节点
     private bool tmp;
     private bool isComplete=false;
+    //返回false 不成功   true成功
+    private UnityEngine.Events.UnityAction<bool> SuccessfulCall;
     /// <summary>
     /// 该节点是否已经关闭  1关闭  2打开
     /// </summary>
@@ -54,16 +56,34 @@ public class node : MonoBehaviour, NodeInterface
                         {
                             Parent.Whether1 =1;
                         }
+                        if (SuccessfulCall != null)
+                        {
+                            SuccessfulCall(true);
+                            SuccessfulCall = null;
+                        }
                     }
                 }
                 else if(value==2)
                 {
                     Whether = value;
+                    if (SuccessfulCall != null)
+                    {
+                        SuccessfulCall(true);
+                        SuccessfulCall = null;
+                    }
                     ico.enabled = true;
                     if (Parent != null)
                     {
                         Parent.Whether1 = 2;
                     }
+                }
+            }
+            else
+            {
+                if (SuccessfulCall != null)
+                {
+                    SuccessfulCall(false);
+                    SuccessfulCall = null;
                 }
             }
         }
@@ -154,7 +174,20 @@ public class node : MonoBehaviour, NodeInterface
     {
         if (isComplete&& ChildNodes1.Count<1)
         {
-            Debug.Log("关闭节点" + this.name);
+            //Debug.Log("关闭节点" + this.name);
         }
+    }
+
+    public void OpenNode(UnityEngine.Events.UnityAction<bool> callUnityAction)
+    {
+        SuccessfulCall = null;
+        SuccessfulCall = callUnityAction;
+        Whether1 = 2;
+    }
+    public void shutDown(UnityEngine.Events.UnityAction<bool> callUnityAction)
+    {
+        SuccessfulCall = null;
+        SuccessfulCall = callUnityAction;
+        Whether1 = 1;
     }
 }

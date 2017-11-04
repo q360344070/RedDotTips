@@ -178,13 +178,13 @@ public class node : MonoBehaviour, NodeInterface
         }
     }
 
-    public void OpenNode(UnityEngine.Events.UnityAction<bool> callUnityAction)
+    public void OpenNode(UnityEngine.Events.UnityAction<bool> callUnityAction=null)
     {
         SuccessfulCall = null;
         SuccessfulCall = callUnityAction;
         Whether1 = 2;
     }
-    public void shutDown(UnityEngine.Events.UnityAction<bool> callUnityAction)
+    public void shutDown(UnityEngine.Events.UnityAction<bool> callUnityAction=null)
     {
         SuccessfulCall = null;
         SuccessfulCall = callUnityAction;

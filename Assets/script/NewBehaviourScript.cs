@@ -30,13 +30,7 @@ public class NewBehaviourScript : MonoBehaviour {
         }
         else
         {
-            ManageAllNodes.GetManageAllNodes.dictionNodes[id].OpenNode(arg0 =>
-            {
-                if (arg0)
-                {
-                    Debug.Log("Change successfully");
-                }
-            });
+            ManageAllNodes.GetManageAllNodes.dictionNodes[id].OpenNode();
         }
     }
 }

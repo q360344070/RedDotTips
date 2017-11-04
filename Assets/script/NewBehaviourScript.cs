@@ -5,7 +5,7 @@ using UnityEngine;
 public class NewBehaviourScript : MonoBehaviour {
 
 	// Use this for initialization
-    public int id;
+    public string id;
     public int whsint;
 	void Start () {
 		

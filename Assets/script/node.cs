@@ -6,7 +6,7 @@ public class node : MonoBehaviour, NodeInterface
 {
 
     [SerializeField]
-    private int id;
+    private string id;
     private int Whether;
     [SerializeField]
     private node Parent;
@@ -91,7 +91,7 @@ public class node : MonoBehaviour, NodeInterface
     /// <summary>
     /// 该节点的标号
     /// </summary>
-    public int Id
+    public string Id
     {
         get
         {
@@ -148,7 +148,7 @@ public class node : MonoBehaviour, NodeInterface
     }
 
     // Use this for initialization
-    void Start ()
+    void Awake()
     {
         ico = transform.Find("RedDotPicture").GetComponent<Image>();
         if (ico == null)
@@ -161,21 +161,36 @@ public class node : MonoBehaviour, NodeInterface
         initialization();
         isComplete = true;
     }
-	// Update is called once per frame
-	void Update () {
-		
-	}
     public void initialization()
     {
-        ManageAllNodes.GetManageAllNodes.dictionNodes[id] = this;
+        if (!ManageAllNodes.GetManageAllNodes.dictionNodes.ContainsKey(id))
+        {
+            ManageAllNodes.GetManageAllNodes.dictionNodes[id] = this;
+        }
+        else
+        {
+            //Already have the same key in the dictionary
+            if (ManageAllNodes.GetManageAllNodes.SameKeyIndex.ContainsKey(id))
+            {
+                int index = ManageAllNodes.GetManageAllNodes.SameKeyIndex[id];
+                index++;
+                ManageAllNodes.GetManageAllNodes.dictionNodes[id + "_" + index] = this;
+                ManageAllNodes.GetManageAllNodes.SameKeyIndex[id] = index;
+                id = id + "_" + index;
+            }
+            else
+            {
+                ManageAllNodes.GetManageAllNodes.SameKeyIndex[id] = 0;
+                int index = ManageAllNodes.GetManageAllNodes.SameKeyIndex[id];
+                ManageAllNodes.GetManageAllNodes.dictionNodes[id+"_"+ index] = this;
+                id = id + "_" + index;
+            }
+        }
     }
 
     public void CloseNode()
     {
-        if (isComplete&& ChildNodes1.Count<1)
-        {
-            //Debug.Log("关闭节点" + this.name);
-        }
+        
     }
 
     public void OpenNode(UnityEngine.Events.UnityAction<bool> callUnityAction=null)

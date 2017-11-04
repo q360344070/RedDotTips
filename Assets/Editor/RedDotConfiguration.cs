@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class RedDotConfiguration : MonoBehaviour {
 
-    [MenuItem("Assets/My Window")]
+    [MenuItem("Assets/Add child nodes")]
     static void Init()
     {
         Dictionary<node,List<node>> ChildNodeCollection = new Dictionary<node, List<node>>();
